@@ -36,25 +36,25 @@ jobs:
         name: robot-test-results
         path: result/  # Upload the 'result' directory containing the test results
 
-    # - name: Publish Report to Jira
-    #   # Create the Jira issue
-    #   run: |
-    #     curl -X POST \
-    #       -H "Authorization: Basic $(echo -n "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" | base64)" \
-    #       -H "Content-Type: application/json" \
-    #       -d '{
-    #         "fields": {
-    #           "project": {
-    #             "key": "TA"
-    #           },
-    #           "summary": "Test Report for Build #${{ github.run_id }}",
-    #           "description": "Automated test results uploaded via GitHub Actions.",
-    #           "issuetype": {
-    #             "name": "Task"
-    #           }
-    #         }
-    #       }' \
-    #       "https://${{ secrets.JIRA_DOMAIN }}/rest/api/2/issue/"
+    - name: Publish Report to Jira
+      # Create the Jira issue
+      run: |
+        curl -request POST \
+          -H "Authorization: Basic $(echo -n "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" | base64)" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "fields": {
+              "project": {
+                "key": "TA"
+              },
+              "summary": "Test Report for Build #${{ github.run_id }}",
+              "description": "Automated test results uploaded via GitHub Actions.",
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }' \
+          "https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/"
 
     - name: Attach test report to Jira issue
       # Attach test report to existing Jira issue
@@ -69,9 +69,3 @@ jobs:
             --form "file=@${FILE_PATH}" \
             -F "filename=report.html"
         fi
-
-
-    # Step 6: Optionally, you can print the test results in the log
-    # - name: Display Test Results
-    #   run: |
-    #     cat result/output.xml
