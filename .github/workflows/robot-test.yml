@@ -63,7 +63,7 @@ jobs:
         ISSUE_KEY="TA-1"
         if [ -f "$FILE_PATH" ]; then
           echo "Report file exists, proceeding to attach it to Jira."
-          curl --request POST --url 'https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/${ISSUE_KEY}/attachments' \
+          curl --request POST --url 'https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/TA-1/attachments' \
             -u "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
             -H "X-Atlassian-Token: no-check" \
             --form "file=@${FILE_PATH}" \
