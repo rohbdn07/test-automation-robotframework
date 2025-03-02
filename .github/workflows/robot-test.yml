@@ -40,21 +40,36 @@ jobs:
       # Create the Jira issue
       run: |
         curl --request POST \
-          -H "Authorization: Basic $(echo -n "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" | base64)" \
-          -H "Content-Type: application/json" \
-          -d '{
+          --url "https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/" \
+          --user "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
+          --header "Accept: application/json" \
+          --header "Content-Type: application/json" \
+          --data '{
             "fields": {
               "project": {
                 "key": "TA"
               },
               "summary": "Test Report for Build #${{ github.run_id }}",
-              "description": "Automated test results uploaded via GitHub Actions.",
+              "description": {
+                "content": [
+                {
+                  "content": [
+                {
+                  "text": "This is for testing",
+                  "type": "text"
+                  }
+                ],
+          "type": "paragraph"
+        }
+          ],
+        "type": "doc",
+        "version": 1
+        }
               "issuetype": {
                 "name": "Task"
               }
             }
-          }' \
-          "https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/"
+          }'
 
     - name: Attach test report to Jira issue
       # Attach test report to existing Jira issue
