@@ -39,7 +39,7 @@ jobs:
     - name: Publish Report to Jira
       # Create the Jira issue
       run: |
-        curl -request POST \
+        curl --request POST \
           -H "Authorization: Basic $(echo -n "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" | base64)" \
           -H "Content-Type: application/json" \
           -d '{
