@@ -66,9 +66,7 @@ jobs:
             -u "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
             -H "X-Atlassian-Token: no-check" \
             --form "file=@${FILE_PATH}" \
-            -F "filename=report.html" \
-        else
-          echo "Report file does not exist at ${FILE_PATH}, skipping attachment."
+            -F "filename=report.html"
         fi
 
 
