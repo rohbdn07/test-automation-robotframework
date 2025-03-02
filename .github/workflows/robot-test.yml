@@ -8,79 +8,79 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout code from the repository
-    - name: Checkout code
-      uses: actions/checkout@v2
+      # Step 1: Checkout code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    # Step 2: Set up Python environment
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.12
+      # Step 2: Set up Python environment
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12
 
-    # Step 3: Install dependencies
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    # Step 4: Run Robot Framework tests
-    - name: Run Robot Framework tests
-      run: |
-        robot --outputdir result tests/
+      # Step 4: Run Robot Framework tests
+      - name: Run Robot Framework tests
+        run: |
+          robot --outputdir result tests/
 
-    # Step 5: Upload the results as artifacts
-    - name: Upload Test Results
-      uses: actions/upload-artifact@v4
-      with:
-        name: robot-test-results
-        path: result/  # Upload the 'result' directory containing the test results
+      # Step 5: Upload the results as artifacts
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-test-results
+          path: result/ # Upload the 'result' directory containing the test results
 
-    - name: Publish Report to Jira
-      # Create the Jira issue
-      run: |
-        curl --request POST \
-          --url "https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/" \
-          --user "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
-          --header "Accept: application/json" \
-          --header "Content-Type: application/json" \
-          --data '{
-            "fields": {
-              "project": {
-                "key": "TA"
-              },
-              "summary": "Test Report for Build #${{ github.run_id }}",
-              "description": {
-                "content": [
-                {
+      - name: Publish Report to Jira
+        # Create the Jira issue
+        run: |
+          curl --request POST \
+            --url "https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/" \
+            --user "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
+            --header "Accept: application/json" \
+            --header "Content-Type: application/json" \
+            --data '{
+              "fields": {
+                "project": {
+                  "key": "TA"
+                },
+                "summary": "Test Report for Build #${{ github.run_id }}",
+                "description": {
                   "content": [
-                {
-                  "text": "This is for testing",
-                  "type": "text"
-                  }
-                ],
-          "type": "paragraph"
-        }
-          ],
-        "type": "doc",
-        "version": 1
-        }
-              "issuetype": {
-                "name": "Task"
+                    {
+                      "content": [
+                        {
+                        "text": "This is for testing",
+                        "type": "text"
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ],
+                  "type": "doc",
+                  "version": 1
+                },
+                "issuetype": {
+                  "name": "Task"
+                }
               }
-            }
-          }'
+            }'
 
-    - name: Attach test report to Jira issue
-      # Attach test report to existing Jira issue
-      run: |
-        FILE_PATH="result/report.html"
-        ISSUE_KEY="TA-1"
-        if [ -f "$FILE_PATH" ]; then
-          echo "Report file exists, proceeding to attach it to Jira."
-          curl --request POST --url 'https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/TA-1/attachments' \
-            -u "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
-            -H "X-Atlassian-Token: no-check" \
-            --form "file=@${FILE_PATH}" \
-            -F "filename=report.html"
-        fi
+      - name: Attach test report to Jira issue
+        # Attach test report to existing Jira issue
+        run: |
+          FILE_PATH="result/report.html"
+          ISSUE_KEY="TA-1"
+          if [ -f "$FILE_PATH" ]; then
+            echo "Report file exists, proceeding to attach it to Jira."
+            curl --request POST --url 'https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/TA-1/attachments' \
+              -u "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
+              -H "X-Atlassian-Token: no-check" \
+              --form "file=@${FILE_PATH}" \
+              -F "filename=report.html"
+          fi
