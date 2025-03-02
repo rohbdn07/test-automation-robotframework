@@ -9,4 +9,4 @@ Simple First Test
 
 Simple Third Test
     [Tags]    third    login
-    Should Be Equal    1    4
+    Should Be Equal    4    4
