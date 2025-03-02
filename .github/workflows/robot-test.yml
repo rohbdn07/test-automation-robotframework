@@ -59,16 +59,14 @@ jobs:
     - name: Attach test report to Jira issue
       # Attach test report to existing Jira issue
       run: |
-        ISSUE_KEY="TA-1"
         FILE_PATH="result/report.html"
         if [ -f "$FILE_PATH" ]; then
           echo "Report file exists, proceeding to attach it to Jira."
-          curl -u "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
-            -X POST \
+          curl --location --request POST "https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/TA-1/attachments" \
+            -u "${{ secrets.JIRA_USERNAME }}:${{ JIRA_API_TOKEN }}" \
             -H "X-Atlassian-Token: no-check" \
-            -F "file=@${FILE_PATH}" \
+            --form "file=@${FILE_PATH}" \
             -F "filename=report.html" \
-            "https://${{ secrets.JIRA_DOMAIN }}/rest/api/2/issue/${ISSUE_KEY}/attachments"
         else
           echo "Report file does not exist at ${FILE_PATH}, skipping attachment."
         fi
