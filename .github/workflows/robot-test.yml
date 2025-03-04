@@ -43,9 +43,9 @@ jobs:
       - name: Upload Allure Report
         uses: allurereport/allure-report-action@v2
         with:
-        allure_results_dir: allure-results
-        allure_report_dir: allure-report
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+          allure_results_dir: allure-results
+          allure_report_dir: allure-report
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       # Step 5: Upload the results as artifacts
       - name: Upload Test Results
