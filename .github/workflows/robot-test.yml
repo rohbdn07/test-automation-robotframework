@@ -31,7 +31,7 @@ jobs:
 
       # Step 5: Generate Nive report using Allure Report
       - name: Generate Allure Report
-      - run: |
+        run: |
           allure generate allure-results --clean -o allure-report
 
       # - name: Upload Allure Report
