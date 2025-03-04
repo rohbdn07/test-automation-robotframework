@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.12.9 on linux)" generated="2025-03-04T13:43:23.603723" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests" source="/home/runner/work/test-automation-robotframework/test-automation-robotframework/tests">
+<suite id="s1-s1" name="First Test" source="/home/runner/work/test-automation-robotframework/test-automation-robotframework/tests/first_test.robot">
+<test id="s1-s1-t1" name="Simple First Test" line="6">
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>1</arg>
+<arg>1</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-03-04T13:43:23.628217" elapsed="0.000173"/>
+</kw>
+<tag>first</tag>
+<tag>login</tag>
+<status status="PASS" start="2025-03-04T13:43:23.627594" elapsed="0.000919"/>
+</test>
+<doc>Suite for testing purpose</doc>
+<status status="PASS" start="2025-03-04T13:43:23.626645" elapsed="0.002226"/>
+</suite>
+<suite id="s1-s2" name="Second Test" source="/home/runner/work/test-automation-robotframework/test-automation-robotframework/tests/second_test.robot">
+<test id="s1-s2-t1" name="Simple First Test" line="6">
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>2</arg>
+<arg>2</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-03-04T13:43:23.630383" elapsed="0.000156"/>
+</kw>
+<tag>login</tag>
+<tag>second</tag>
+<status status="PASS" start="2025-03-04T13:43:23.630088" elapsed="0.000575"/>
+</test>
+<test id="s1-s2-t2" name="Simple Third Test" line="10">
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>4</arg>
+<arg>4</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-03-04T13:43:23.631080" elapsed="0.000123"/>
+</kw>
+<tag>login</tag>
+<tag>third</tag>
+<status status="PASS" start="2025-03-04T13:43:23.630839" elapsed="0.000450"/>
+</test>
+<doc>Suite for testing purpose</doc>
+<status status="PASS" start="2025-03-04T13:43:23.629272" elapsed="0.002230"/>
+</suite>
+<status status="PASS" start="2025-03-04T13:43:23.604578" elapsed="0.027367"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">first</stat>
+<stat pass="3" fail="0" skip="0">login</stat>
+<stat pass="1" fail="0" skip="0">second</stat>
+<stat pass="1" fail="0" skip="0">third</stat>
+</tag>
+<suite>
+<stat name="Tests" id="s1" pass="3" fail="0" skip="0">Tests</stat>
+<stat name="First Test" id="s1-s1" pass="1" fail="0" skip="0">Tests.First Test</stat>
+<stat name="Second Test" id="s1-s2" pass="2" fail="0" skip="0">Tests.Second Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
