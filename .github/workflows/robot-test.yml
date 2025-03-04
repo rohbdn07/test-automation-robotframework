@@ -41,8 +41,8 @@ jobs:
       #     allure generate allure-results --clean -o allure-report
 
       - name: Upload Allure Report
-      - uses: allurereport/allure-report-action@v2
-      - with:
+        uses: allurereport/allure-report-action@v2
+        with:
         allure_results_dir: allure-results
         allure_report_dir: allure-report
         github_token: ${{ secrets.GITHUB_TOKEN }}
