@@ -25,6 +25,11 @@ jobs:
           pip install allure-robotframework
           pip install -r requirements.txt
 
+      - name: Install Allure Command-Line Tool
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y allure
+
       # Step 4: Run Robot Framework tests
       - name: Run Robot Framework tests
         run: |
