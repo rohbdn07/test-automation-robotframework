@@ -58,55 +58,55 @@ jobs:
           name: robot-test-results
           path: allure-results
 
-      - name: Publish Report to Jira
-        # Create the Jira issue
-        run: |
-          response=$(curl --request POST \
-            --url "https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/" \
-            --user "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
-            --header "Accept: application/json" \
-            --header "Content-Type: application/json" \
-            --data '{
-              "fields": {
-                "project": {
-                  "key": "TA"
-                },
-                "summary": "Test Report for Build #${{ github.run_id }}",
-                "description": {
-                  "content": [
-                    {
-                      "content": [
-                        {
-                        "text": "This is for testing. This ticket is created through pipeline",
-                        "type": "text"
-                        }
-                      ],
-                      "type": "paragraph"
-                    }
-                  ],
-                  "type": "doc",
-                  "version": 1
-                },
-                "issuetype": {
-                  "name": "Task"
-                }
-              }
-            }')
-          ISSUE_KEY=$(echo $response | jq -r '.key')
-          echo "Created Jira issue with key: $ISSUE_KEY"
-          echo "ISSUE_KEY=$ISSUE_KEY" >> $GITHUB_ENV
+      # - name: Publish Report to Jira
+      #   # Create the Jira issue
+      #   run: |
+      #     response=$(curl --request POST \
+      #       --url "https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/" \
+      #       --user "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
+      #       --header "Accept: application/json" \
+      #       --header "Content-Type: application/json" \
+      #       --data '{
+      #         "fields": {
+      #           "project": {
+      #             "key": "TA"
+      #           },
+      #           "summary": "Test Report for Build #${{ github.run_id }}",
+      #           "description": {
+      #             "content": [
+      #               {
+      #                 "content": [
+      #                   {
+      #                   "text": "This is for testing. This ticket is created through pipeline",
+      #                   "type": "text"
+      #                   }
+      #                 ],
+      #                 "type": "paragraph"
+      #               }
+      #             ],
+      #             "type": "doc",
+      #             "version": 1
+      #           },
+      #           "issuetype": {
+      #             "name": "Task"
+      #           }
+      #         }
+      #       }')
+      #     ISSUE_KEY=$(echo $response | jq -r '.key')
+      #     echo "Created Jira issue with key: $ISSUE_KEY"
+      #     echo "ISSUE_KEY=$ISSUE_KEY" >> $GITHUB_ENV
 
 
-      - name: Attach test report to Jira issue
-        # Attach test report to existing Jira issue
-        run: |
-          FILE_PATH="allure-results/report.html"
-          ISSUE_KEY="TA-1"
-          if [ -f "$FILE_PATH" ]; then
-            echo "Report file exists, proceeding to attach it to Jira."
-            curl --request POST --url 'https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/${{ env.ISSUE_KEY }}/attachments' \
-              -u "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
-              -H "X-Atlassian-Token: no-check" \
-              --form "file=@${FILE_PATH}" \
-              -F "filename=report.html"
-          fi
+      # - name: Attach test report to Jira issue
+      #   # Attach test report to existing Jira issue
+      #   run: |
+      #     FILE_PATH="allure-results/report.html"
+      #     ISSUE_KEY="TA-1"
+      #     if [ -f "$FILE_PATH" ]; then
+      #       echo "Report file exists, proceeding to attach it to Jira."
+      #       curl --request POST --url 'https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/${{ env.ISSUE_KEY }}/attachments' \
+      #         -u "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
+      #         -H "X-Atlassian-Token: no-check" \
+      #         --form "file=@${FILE_PATH}" \
+      #         -F "filename=report.html"
+      #     fi
