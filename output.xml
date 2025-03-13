@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.2.2 (Python 3.12.9 on linux)" generated="2025-03-13T09:11:24.325740" rpa="false" schemaversion="5">
+<robot generator="Robot 7.2.2 (Python 3.12.9 on linux)" generated="2025-03-13T10:13:38.521047" rpa="false" schemaversion="5">
 <suite id="s1" name="Tests" source="/home/runner/work/test-automation-robotframework/test-automation-robotframework/tests">
 <suite id="s1-s1" name="First Test" source="/home/runner/work/test-automation-robotframework/test-automation-robotframework/tests/first_test.robot">
 <test id="s1-s1-t1" name="Simple First Test" line="6">
@@ -7,14 +7,14 @@
 <arg>1</arg>
 <arg>1</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2025-03-13T09:11:24.349968" elapsed="0.000169"/>
+<status status="PASS" start="2025-03-13T10:13:38.545127" elapsed="0.000168"/>
 </kw>
 <tag>first</tag>
 <tag>login</tag>
-<status status="PASS" start="2025-03-13T09:11:24.349323" elapsed="0.000935"/>
+<status status="PASS" start="2025-03-13T10:13:38.544514" elapsed="0.000918"/>
 </test>
 <doc>Suite for testing purpose</doc>
-<status status="PASS" start="2025-03-13T09:11:24.348426" elapsed="0.002161"/>
+<status status="PASS" start="2025-03-13T10:13:38.543610" elapsed="0.002166"/>
 </suite>
 <suite id="s1-s2" name="Second Test" source="/home/runner/work/test-automation-robotframework/test-automation-robotframework/tests/second_test.robot">
 <test id="s1-s2-t1" name="Simple First Test" line="6">
@@ -22,27 +22,27 @@
 <arg>2</arg>
 <arg>2</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2025-03-13T09:11:24.352157" elapsed="0.000141"/>
+<status status="PASS" start="2025-03-13T10:13:38.547231" elapsed="0.000158"/>
 </kw>
 <tag>login</tag>
 <tag>second</tag>
-<status status="PASS" start="2025-03-13T09:11:24.351865" elapsed="0.000529"/>
+<status status="PASS" start="2025-03-13T10:13:38.546935" elapsed="0.000550"/>
 </test>
 <test id="s1-s2-t2" name="Simple Third Test" line="10">
 <kw name="Should Be Equal" owner="BuiltIn">
 <arg>4</arg>
 <arg>4</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2025-03-13T09:11:24.352821" elapsed="0.000122"/>
+<status status="PASS" start="2025-03-13T10:13:38.547894" elapsed="0.000115"/>
 </kw>
 <tag>login</tag>
 <tag>third</tag>
-<status status="PASS" start="2025-03-13T09:11:24.352566" elapsed="0.000462"/>
+<status status="PASS" start="2025-03-13T10:13:38.547657" elapsed="0.000436"/>
 </test>
 <doc>Suite for testing purpose</doc>
-<status status="PASS" start="2025-03-13T09:11:24.351039" elapsed="0.002194"/>
+<status status="PASS" start="2025-03-13T10:13:38.546135" elapsed="0.002178"/>
 </suite>
-<status status="PASS" start="2025-03-13T09:11:24.326568" elapsed="0.027110"/>
+<status status="PASS" start="2025-03-13T10:13:38.521893" elapsed="0.026835"/>
 </suite>
 <statistics>
 <total>
