@@ -25,11 +25,6 @@ jobs:
           pip install allure-robotframework
           pip install -r requirements.txt
 
-      # - name: Install Allure Command-Line Tool
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y allure
-
       # Step 4: Run Robot Framework tests
       - name: Run Robot Framework tests
         run: |
@@ -66,7 +61,7 @@ jobs:
       - name: Publish Report to Jira
         # Create the Jira issue
         run: |
-          curl --request POST \
+          response=$(curl --request POST \
             --url "https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/" \
             --user "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
             --header "Accept: application/json" \
@@ -82,7 +77,7 @@ jobs:
                     {
                       "content": [
                         {
-                        "text": "This is for testing",
+                        "text": "This is for testing. This ticket is created through pipeline",
                         "type": "text"
                         }
                       ],
@@ -96,7 +91,11 @@ jobs:
                   "name": "Task"
                 }
               }
-            }'
+            }')
+          ISSUE_KEY=$(echo $response | jq -r '.key')
+          echo "Created Jira issue with key: $ISSUE_KEY"
+          echo "ISSUE_KEY=$ISSUE_KEY" >> $GITHUB_ENV
+
 
       - name: Attach test report to Jira issue
         # Attach test report to existing Jira issue
@@ -105,7 +104,7 @@ jobs:
           ISSUE_KEY="TA-1"
           if [ -f "$FILE_PATH" ]; then
             echo "Report file exists, proceeding to attach it to Jira."
-            curl --request POST --url 'https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/TA-1/attachments' \
+            curl --request POST --url 'https://${{ secrets.JIRA_DOMAIN }}/rest/api/3/issue/${{ env.ISSUE_KEY }}/attachments' \
               -u "${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }}" \
               -H "X-Atlassian-Token: no-check" \
               --form "file=@${FILE_PATH}" \
